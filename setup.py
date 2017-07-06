@@ -1,7 +1,7 @@
 #
 # setup.py
 #
-# Copyright (C) 2009 Simon Bernier St-Pierre <sbernierstpirre@gmail.com>
+# Copyright (C) 2009 sbstp <git@sbstp.ca>
 #
 # Basic plugin template created by:
 # Copyright (C) 2008 Martijn Voncken <mvoncken@gmail.com>
@@ -39,13 +39,13 @@
 
 from setuptools import setup
 
-__plugin_name__ = "ApolloFix"
+__plugin_name__ = "AutoTrackerEdit"
 __author__ = "sbstp"
 __author_email__ = "git@sbstp.ca"
 __version__ = "0.2"
 __url__ = ""
 __license__ = "GPLv3"
-__description__ = "Fix trackers URLs from Apollo.rip"
+__description__ = "Automatically edit trackers using regexes"
 __long_description__ = """"""
 __pkg_data__ = {__plugin_name__.lower(): ["template/*", "data/*"]}
 
@@ -60,7 +60,7 @@ setup(
     long_description=__long_description__ if __long_description__ else __description__,
 
     packages=[__plugin_name__.lower()],
-    package_data = __pkg_data__,
+    package_data=__pkg_data__,
 
     entry_points="""
     [deluge.plugin.core]
@@ -69,5 +69,5 @@ setup(
     %s = %s:GtkUIPlugin
     [deluge.plugin.web]
     %s = %s:WebUIPlugin
-    """ % ((__plugin_name__, __plugin_name__.lower())*3)
+    """ % ((__plugin_name__, __plugin_name__.lower()) * 3)
 )
