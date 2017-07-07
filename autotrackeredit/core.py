@@ -1,8 +1,8 @@
 import json
 import re
 
-from deluge.common import get_default_config_dir
 import deluge.component as component
+from deluge.common import get_default_config_dir
 from deluge.log import LOG as log
 from deluge.plugins.pluginbase import CorePluginBase
 
@@ -18,9 +18,13 @@ class Core(CorePluginBase):
             with open(config_path) as f:
                 items = json.load(f)
                 for item in items:
-                    regex = re.compile(item['regex'])
-                    self._edits.append((regex, item['repl']))
-        except OSError:
+                    try:
+                        regex = re.compile(item['regex'])
+                    except re.error:
+                        log.info("AutoTrackerEdit: invalid regex %s" % item['regex'])
+                    else:
+                        self._edits.append((regex, item['repl']))
+        except IOError:
             log.error("AutoTrackerEdit: failed to open config file")
 
         log.info("AutoTrackerEdit: loaded %d regex from the config file", len(self._edits))
